@@ -1,7 +1,13 @@
 "use client";
 
 import { AppSessionProvider } from "@/entities/session/app-session-provider";
+import { queryClient } from "@/shared/api/query-client";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 export function AppProvider({ children }: { children?: React.ReactNode }) {
-  return <AppSessionProvider>{children}</AppSessionProvider>;
+  return (
+    <AppSessionProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </AppSessionProvider>
+  );
 }
