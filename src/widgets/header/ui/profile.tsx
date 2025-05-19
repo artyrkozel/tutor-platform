@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useAppSession } from "@/entities/session/use-app-session";
+import { useAppSession } from "@/entities/user/use-app-session";
 import { SignInButton } from "@/features/auth/sign-in-button";
 import { useSignOut } from "@/features/auth/use-sign-out";
 import { Button } from "@/shared/ui/button";

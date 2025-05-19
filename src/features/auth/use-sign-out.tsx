@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ export const useSignOut = () => {
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: () => signOut({ callbackUrl: "/" }),
+    mutationFn: () => signOut({ callbackUrl: "/auth/sign-in" }),
     onSuccess: async () => {
       router.push("/auth/sign-in");
     },

@@ -5,9 +5,29 @@ import GithubProvider from "next-auth/providers/github"
 import EmailProvider from "next-auth/providers/email"
 import { compact } from "lodash-es"
 import { privateConfig } from "@/shared/config/private"
+import { CreateUser, createUserUseCase } from "./_use-cases/create-user"
+
+const prismaAdapter = PrismaAdapter(prisma);
 
 export const nextAuthConfig: AuthOptions = {
-    adapter: PrismaAdapter(prisma) as AuthOptions["adapter"],
+    adapter: {
+    ...prismaAdapter,
+    createUser: (user: CreateUser) => {
+        return createUserUseCase.exec(user);
+    },
+  } as AuthOptions["adapter"],
+    callbacks: {
+        session: async ({ session, user }) => {
+        return {
+            ...session,
+            user: {
+            ...session.user,
+            id: user.id,
+            role: user.role,
+            },
+        };
+        },
+    },
     pages: {
         signIn: "/auth/sign-in",
         newUser: "/auth/new-user",
@@ -32,6 +52,7 @@ export const nextAuthConfig: AuthOptions = {
         GithubProvider({
             clientId: process.env.GITHUB_ID ?? '',
             clientSecret: process.env.GITHUB_SECRET ?? '',
+            allowDangerousEmailAccountLinking: true
     }),
     ])
 }
