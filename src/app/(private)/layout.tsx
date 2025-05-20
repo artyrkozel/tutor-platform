@@ -1,3 +1,4 @@
+import AuthGuard from "@/features/auth/auth-guard";
 import { Header } from "@/widgets/header/header";
 
 export default async function Layout({
@@ -8,7 +9,7 @@ export default async function Layout({
   return (
     <>
       <Header />
-      {children}
+      <AuthGuard>{children}</AuthGuard>
     </>
   );
 }

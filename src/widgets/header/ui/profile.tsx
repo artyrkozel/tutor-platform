@@ -13,6 +13,10 @@ export const Profile = () => {
     return <SignInButton />;
   }
 
+   if (session.status === "loading") {
+    return <span>...loading</span>;
+  }
+
   return (
     <div>
       <div>{session.data?.user.name}</div>
