@@ -1,5 +1,3 @@
-export const NewUser = () => {
+export default function NewUser() {
   return <div>New user</div>;
-};
-
-export default NewUser;
+}
